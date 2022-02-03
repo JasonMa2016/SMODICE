@@ -2,7 +2,9 @@
 
 This is the codebase accompanying "SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching".
 
-We have included code to replicate our tabular MDP experiments as well as deep RL experiments. 
+## SMODICE Demos
+![](./media/ant-observations.gif)  |  ![](./media/halfcheetah-observations.gif) |  ![](./media/antmaze-umaze-observations.gif) |  ![](./media/kitchen-observations.gif)
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 
 ## Tabular Experiments
 
