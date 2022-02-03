@@ -79,4 +79,4 @@ For any task, the ```BC``` baseline can be run by appending ```--disc_type bc```
 For ```RCE-TD3-BC``` and ```ORIL``` baselines, on the appropriate tasks, append ```--algo_type $ALGO``` where ```ALGO``` can be one of ```rce, oril```. 
 
 ## Acknowledgment
-This codebase is partially adapted from [optidice](https://github.com/secury/optidice); We thank the authors and contributors for open-sourcing their code. 
+This codebase is partially adapted from [optidice](https://github.com/secury/optidice), [rce](https://github.com/google-research/google-research/tree/master/rce), [relay-policy-learning](https://github.com/google-research/relay-policy-learning), and [d4rl](https://github.com/rail-berkeley/d4rl) ; We thank the authors and contributors for open-sourcing their code. 
