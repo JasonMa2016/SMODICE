@@ -1,6 +1,8 @@
 # SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching
 
-This is the codebase accompanying "SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching".
+This is the official PyTorch implementation of "SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching".
+
+<img src="media/smodice-concept-figure.png" width="700">
 
 ## SMODICE Demos
 ![](./media/ant-observations.gif)  |  ![](./media/halfcheetah-observations.gif) |  ![](./media/antmaze-umaze-observations.gif) |  ![](./media/kitchen-observations.gif)
@@ -79,6 +81,20 @@ where ```DATASET``` can be one of ```microwave, kettle```.
 For any task, the ```BC``` baseline can be run by appending ```--disc_type bc``` to the above commands.
 
 For ```RCE-TD3-BC``` and ```ORIL``` baselines, on the appropriate tasks, append ```--algo_type $ALGO``` where ```ALGO``` can be one of ```rce, oril```. 
+
+## Citation
+If you find this repository useful for your research, please cite
+```
+@article{ma2022smodice,
+      title={SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching}, 
+      author={Yecheng Jason Ma and Andrew Shen and Dinesh Jayaraman and Osbert Bastani},
+      year={2022},
+      url={https://arxiv.org/abs/2202.02433}
+}
+```
+
+## Contact
+If you have any questions regarding the code or paper, feel free to contact me at jasonyma@seas.upenn.edu.
 
 ## Acknowledgment
 This codebase is partially adapted from [optidice](https://github.com/secury/optidice), [rce](https://github.com/google-research/google-research/tree/master/rce), [relay-policy-learning](https://github.com/google-research/relay-policy-learning), and [d4rl](https://github.com/rail-berkeley/d4rl) ; We thank the authors and contributors for open-sourcing their code. 
