@@ -1,6 +1,6 @@
 # SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching
 
-This is the official PyTorch implementation of [SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching](https://arxiv.org/abs/2202.02433).
+This is the official PyTorch implementation of [SMODICE: Versatile Offline Imitation Learning via State Occupancy Matching](https://arxiv.org/abs/2202.02433), presented at International Conference on Machine Learning, 2022.
 
 <img src="media/smodice-concept-figure.png" width="700">
 
