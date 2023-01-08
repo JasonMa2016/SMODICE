@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from tqdm import tqdm
-import wandb 
+import wandb
 
 import utils
 from smodice_pytorch import SMODICE
 from rce_pytorch import RCE_TD3_BC
-from oril_pytorch import ORIL 
+from oril_pytorch import ORIL
 
 from discriminator_pytorch import Discriminator, Discriminator_SA
 np.set_printoptions(precision=3, suppress=True)
@@ -52,14 +52,14 @@ def _get_data(env, dataset=None, num_expert_obs=200, terminal_offset=50, all=Fal
     expert_obs = expert_obs[indices]
     expert_infos_qpos = expert_infos_qpos[indices]
     expert_infos_qvel = expert_infos_qvel[indices]
-  return expert_obs, expert_infos_qpos, expert_infos_qvel 
+  return expert_obs, expert_infos_qpos, expert_infos_qvel
 
 GOAL_MAPPING = {'right':1, 'left':2, 'down':3, 'up':4}
 GOAL_LOC_MAPPING = {'right':[7,4], 'left':[1,4], 'down': [4,1], 'up':[4,7]}
 
 def run(config):
-    # Load offline dataset    
-    from envs.pointmaze import maze_model 
+    # Load offline dataset
+    from envs.pointmaze import maze_model
     maze = maze_model.EXAMPLE_MAZE
     init_target = GOAL_LOC_MAPPING[config['goal']]
     goal_id = GOAL_MAPPING[config['goal']]
@@ -93,7 +93,7 @@ def run(config):
     # Create inputs for the discriminator
     state_dim = dataset_statistics['observation_dim'] + 1 if config['absorbing_state'] else dataset_statistics['observation_dim']
     action_dim = 0 if config['state'] else dataset_statistics['action_dim']
-    disc_cutoff = state_dim 
+    disc_cutoff = state_dim
 
     expert_input = expert_traj['observations'][:, :disc_cutoff]
     offline_input = dataset['observations'][:, :disc_cutoff]
@@ -154,7 +154,7 @@ def run(config):
         eval = utils.evaluate(env, agent, dataset_statistics, absorbing_state=config['absorbing_state'], pid=config.get('pid'),
         iteration=iteration, normalize=False)
         train_result.update({'iteration': iteration, 'eval': eval})
-            
+
         train_result.update({'iter_per_sec': config['log_iterations'] / (time.time() - last_start_time)})
         if 'w_e' in train_result:
             train_result.update({'w_e': train_result['w_e'].mean()})
@@ -175,9 +175,9 @@ def run(config):
     for iteration in tqdm(range(start_iteration, config['total_iterations'] + 1), ncols=70, desc='DICE', initial=start_iteration, total=config['total_iterations'] + 1, ascii=True, disable=os.environ.get("DISABLE_TQDM", False)):
         # Sample mini-batch data from dataset
         initial_observation, observation, action, reward, next_observation, terminal = _sample_minibatch(config['batch_size'], config['reward_scale'])
-        
+
         # Sample success states for RCE
-        if config['dice_type'] == 'rce':
+        if config['algo_type'] == 'rce':
             success_indices = np.random.randint(0, expert_traj['observations'].shape[0], config['batch_size'])
             success_state = torch.from_numpy(expert_traj['observations'][success_indices])
             initial_observation = success_state
@@ -191,7 +191,7 @@ def run(config):
                 act_for_disc = torch.from_numpy(np.array(action)).to(discriminator.device)
                 disc_input = torch.cat([obs_for_disc, act_for_disc], axis=1)
             reward = discriminator.predict_reward(disc_input)
-        
+
         # Perform gradient descent
         train_result = agent.train_step(initial_observation, observation, action, reward, next_observation, terminal)
         if iteration % config['log_iterations'] == 0:
